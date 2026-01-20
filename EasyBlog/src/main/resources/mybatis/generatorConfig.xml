@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<classPathEntry location="E:/CodeStore/M3Repo/mysql/mysql-connector-java/5.1.30/mysql-connector-java-5.1.30.jar" />
+
+	<context id="myBatisGenerator" targetRuntime="MyBatis3">
+
+		<commentGenerator>
+			<property name="suppressDate" value="false" />
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://112.74.100.219:3306/jblog"
+			userId="root" password="q1w2e3r4">
+		</jdbcConnection>
+		
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="indi.coderxb.easyblog.entity.po" targetProject="EasyBlog\src\main\java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="mybatis.mapper" targetProject="EasyBlog\src\main\resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator type="XMLMAPPER" targetPackage="indi.coderxb.easyblog.mapper" targetProject="EasyBlog\src\main\java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- 例子 
+		<table tableName="T_FEE_AGTBILL" domainObjectName="FeeAgentBill" enableCountByExample="false" enableUpdateByExample="false" 
+			enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/> 
+		<table schema="visAdmin" tableName="vendor_carriers" />
+		  -->
+		  
+		<table schema="jblog" tableName="account" domainObjectName="AccountPo"/>
+		
+	</context>
+
+</generatorConfiguration>
