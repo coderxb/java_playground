@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- default用于指定 project 默认执行时所执行的 target 的名称 -->
+<project name="ant_test" basedir="." default="run">
+	
+	<!-- environment是用于获取系统环境变量里面的也内容，形式如${env.JAVA_HOME} -->
+	<property environment="env"/>
+	<property name="src" value="src"/>
+	<property file="build.properties"/>
+	
+	<!-- eg 1: 基础的输出 -->
+	<target name="getBaseDir">
+    	<echo message="The base dir is: ${basedir}"/>
+    	<echo message="${env.JAVA_HOME}"/>
+    </target>
+    
+    <!-- eg 2: target依赖关系 -->
+	<target name="targetA" if="ant.java.version">
+		<echo message="Java Version: ${ant.java.version}"/>
+	</target>
+	
+	<target name="targetB"  depends="targetA" unless="philander">
+		<description>a depend example!</description>
+		<echo message ="The base dir is: ${basedir}"/>
+		<echo message ="userName: ${userName}, passWord: ${passWord}"/>
+	</target>
+	<copy file="original.txt" tofile="copied.txt"/>
+	
+	<!-- eg 3: 运行一个Hello World -->
+	<target name="clean">
+    	<delete dir="${basedir}/build"/>
+    </target>
+    
+    <target name="compile"  depends="clean">
+        <mkdir dir="${basedir}/build/classes"/>
+        <javac includeantruntime="false" srcdir="${basedir}/src" destdir ="${basedir}/build/classes"/>
+    </target>
+    
+    <target name="run"  depends="compile">
+    	<java classname="com.gavin.helloworld.HelloWorld">
+            <classpath>
+               <pathelement path="${basedir}/build/classes"/>
+            </classpath>
+        </java>
+    </target>
+    
+    <target name="jar" depends="run">
+    	<jar destfile="helloworld.jar" basedir="${basedir}/build/classes">
+    		<manifest>
+    			<attribute name="Main-class" value="com.gavin.helloworld.HelloWorld"/>
+    		</manifest>
+    	</jar>
+    </target >
+        
+</project>
